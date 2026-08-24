@@ -85,3 +85,5 @@ class App:
 
     def _quick_quote(self, params, body):
         return quote_view(self.catalog, {params["sku"]: params["quantity"]})
+
+# demo: leaf-only change, should select only the web lane
