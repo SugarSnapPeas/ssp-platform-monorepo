@@ -261,3 +261,5 @@ file inside the repository, which is what makes the coverage edges usable.
 
 All tests are **in-process**. Nothing talks to another service over HTTP, because an HTTP call
 produces no coverage edge and would make impact analysis silently under-select.
+
+<!-- selection demo -->
