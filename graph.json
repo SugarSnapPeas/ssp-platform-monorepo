@@ -1,0 +1,90 @@
+{
+  "schema": "ssp.dag/v1",
+  "description": "Build-unit dependency graph for ssp-platform-monorepo. Consumed by the sugarsnappeas/selector orb's analyse.py, which diffs a revision range, marks directly-changed nodes, walks dependents transitively, and emits one pipeline lane per selected node.",
+  "default_branch": "main",
+  "selection": {
+    "direct_match": "A changed file selects a node when its repo-relative path matches any glob in that node's `paths`. Globs follow fnmatch/pathlib semantics: `*` does not cross `/`, `**` does.",
+    "propagation": "reverse-transitive-closure over `depends_on` \u2014 if node X is selected and node Y lists X in Y.depends_on, Y is selected too, recursively.",
+    "full_run_paths": "A changed file matching any glob in the top-level `full_run_paths` selects EVERY node, bypassing per-node matching. These are repo-wide files the graph itself depends on.",
+    "unmatched_paths": "A changed file that matches no node and no full_run_paths glob selects nothing. Selectors should record it in the traversal log as unattributed.",
+    "ordering": "`depends_on` is a strict partial order; the graph is acyclic. Lanes may be run in any order or in parallel \u2014 the DAG describes impact, not build sequencing."
+  },
+  "full_run_paths": [
+    "graph.json",
+    ".circleci/**",
+    "tools/**",
+    "tests/**",
+    "requirements-dev.txt",
+    "conftest.py",
+    "pytest.ini"
+  ],
+  "nodes": [
+    {
+      "id": "shared-core",
+      "kind": "library",
+      "root": "packages/shared-core",
+      "paths": [
+        "packages/shared-core/**"
+      ],
+      "depends_on": [],
+      "test_suite": {
+        "config": ".circleci/test-suites.yml",
+        "name": "shared-core tests",
+        "impact_key": "monorepo-shared-core",
+        "working_directory": "packages/shared-core"
+      }
+    },
+    {
+      "id": "api",
+      "kind": "service",
+      "root": "services/api",
+      "paths": [
+        "services/api/**"
+      ],
+      "depends_on": [
+        "shared-core"
+      ],
+      "test_suite": {
+        "config": ".circleci/test-suites.yml",
+        "name": "api tests",
+        "impact_key": "monorepo-api",
+        "working_directory": "services/api"
+      }
+    },
+    {
+      "id": "worker",
+      "kind": "service",
+      "root": "services/worker",
+      "paths": [
+        "services/worker/**"
+      ],
+      "depends_on": [
+        "shared-core",
+        "api"
+      ],
+      "test_suite": {
+        "config": ".circleci/test-suites.yml",
+        "name": "worker tests",
+        "impact_key": "monorepo-worker",
+        "working_directory": "services/worker"
+      }
+    },
+    {
+      "id": "web",
+      "kind": "service",
+      "root": "services/web",
+      "paths": [
+        "services/web/**"
+      ],
+      "depends_on": [
+        "api"
+      ],
+      "test_suite": {
+        "config": ".circleci/test-suites.yml",
+        "name": "web tests",
+        "impact_key": "monorepo-web",
+        "working_directory": "services/web"
+      }
+    }
+  ]
+}

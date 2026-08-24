@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.lcov
+*.lcov
+junit.xml
+test-results/
+
+# local impact data written by `circleci testsuite --local`
+.circleci/impact-doctor-*.json
+.circleci/impact-*.json

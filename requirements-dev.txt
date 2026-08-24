@@ -1,0 +1,6 @@
+# Tooling for the repo-root guard suite (tests/test_graph_dag.py) and for the
+# selector setup job. The per-service suites do NOT need these; each service
+# pins its own requirements.txt.
+pytest>=8.0,<9.0
+coverage>=7.4,<8.0
+PyYAML>=6.0,<7.0

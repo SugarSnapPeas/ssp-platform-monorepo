@@ -1,0 +1,5 @@
+# api has no third-party runtime dependencies. Its in-repo dependency is
+# packages/shared-core, wired via conftest.py (see graph.json).
+# coverage >= 6.3 is required for `coverage lcov`.
+pytest>=8.0,<9.0
+coverage>=7.4,<8.0

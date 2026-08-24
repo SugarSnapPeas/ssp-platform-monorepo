@@ -1,0 +1,5 @@
+# shared-core has no runtime dependencies — only the test/coverage toolchain.
+# coverage >= 6.3 is required for `coverage lcov`, which the test-suites.yml
+# `analysis` command relies on.
+pytest>=8.0,<9.0
+coverage>=7.4,<8.0

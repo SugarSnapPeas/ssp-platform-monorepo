@@ -1,0 +1,6 @@
+# web has no third-party runtime dependencies. Its in-repo dependency is
+# services/api, wired via conftest.py (see graph.json). shared-core arrives
+# transitively through api.
+# coverage >= 6.3 is required for `coverage lcov`.
+pytest>=8.0,<9.0
+coverage>=7.4,<8.0
