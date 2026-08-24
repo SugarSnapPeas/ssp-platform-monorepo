@@ -85,3 +85,8 @@ class App:
 
     def _quick_quote(self, params, body):
         return quote_view(self.catalog, {params["sku"]: params["quantity"]})
+
+# demo: leaf-only change, should select only the web lane
+# second commit: this IS a push to an open PR (synchronize event)
+# retrigger after orb 1.0.1 (testsuite extension fix)
+# retest with orb 1.0.3 (no legacy CLI install)
