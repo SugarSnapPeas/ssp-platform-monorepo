@@ -47,6 +47,11 @@
 # ============================================================================
 name: shared-core tests
 
+# Without this block the JUnit report goes to a temp file and `store_test_results`
+# collects nothing — the Tests tab stays empty. Must match the orb's junit-path.
+outputs:
+  junit: test-results/junit.xml
+
 # Every stdout line is read as a test atom, so this lists FILES and must not
 # run tests or print metadata. `pytest --collect-only` is unusable here: its
 # banner and summary lines would be parsed as atoms.
@@ -72,6 +77,9 @@ options:
 
 ---
 name: api tests
+
+outputs:
+  junit: test-results/junit.xml
 
 discover: find tests -type f -name 'test_*.py'
 
@@ -101,6 +109,9 @@ options:
 ---
 name: worker tests
 
+outputs:
+  junit: test-results/junit.xml
+
 discover: find tests -type f -name 'test_*.py'
 
 run: pytest --junitxml="<< outputs.junit >>" << test.atoms >>
@@ -123,6 +134,9 @@ options:
 
 ---
 name: web tests
+
+outputs:
+  junit: test-results/junit.xml
 
 discover: find tests -type f -name 'test_*.py'
 
