@@ -62,3 +62,5 @@ def render_rows(template: str, rows: Sequence[Mapping[str, object]], separator: 
     return separator.join(render(template, row) for row in rows)
 
 # narrow selection demo: only atoms covering templating should run
+
+# fresh run
