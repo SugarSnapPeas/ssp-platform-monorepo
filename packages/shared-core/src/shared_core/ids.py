@@ -83,3 +83,5 @@ def parse_order_id(order_id: str) -> OrderId:
     return OrderId(match.group("prefix"), day, int(match.group("seq")))
 
 # fan-out demo: every service imports shared-core
+
+# retest for Tests tab (orb 1.0.4)
