@@ -60,3 +60,5 @@ def render(template: str, context: Mapping[str, object], autoescape: bool = True
 def render_rows(template: str, rows: Sequence[Mapping[str, object]], separator: str = "\n") -> str:
     """Render ``template`` once per row and join the results."""
     return separator.join(render(template, row) for row in rows)
+
+# narrow selection demo: only atoms covering templating should run
