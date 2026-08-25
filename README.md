@@ -263,3 +263,5 @@ All tests are **in-process**. Nothing talks to another service over HTTP, becaus
 produces no coverage edge and would make impact analysis silently under-select.
 
 <!-- selection demo -->
+
+<!-- fan-out demo -->
