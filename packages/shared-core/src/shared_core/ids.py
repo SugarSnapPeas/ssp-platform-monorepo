@@ -81,3 +81,9 @@ def parse_order_id(order_id: str) -> OrderId:
     day_text = match.group("day")
     day = date(int(day_text[0:4]), int(day_text[4:6]), int(day_text[6:8]))
     return OrderId(match.group("prefix"), day, int(match.group("seq")))
+
+# fan-out demo: every service imports shared-core
+
+# retest for Tests tab (orb 1.0.4)
+
+# fresh run
